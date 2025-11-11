@@ -1,0 +1,27 @@
+# Qt build directories
+build-*/
+build/
+build*/
+Desktop_Qt_*/
+
+# Qt user-specific settings
+*.pro.user
+*.pro.user.*
+*.autosave
+
+# Qt Creator settings
+*.creator
+*.creator.user
+*.creator.user.*
+
+# Compiled files
+*.o
+*.obj
+*.exe
+*.dll
+*.so
+
+# Misc auto-generated files
+moc_*
+qrc_*
+ui_*
