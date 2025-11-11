@@ -1,6 +1,8 @@
 #include "mainwindow.h"
-#include "productwindow.h"
 #include "ui_mainwindow.h"
+
+#include "productwindow.h"
+#include "../widgets/productitemwidget.h"
 
 MainWindow::MainWindow(QWidget *parent): QMainWindow(parent), ui(new Ui::MainWindow)
 {
@@ -34,6 +36,33 @@ void MainWindow::on_pushButton_clicked()
 void MainWindow::onBarcodeEntered()
 {
     QString code = ui->lineEdit->text();
+    ui->lineEdit->clear();
+
+    // Buscar producto en el modelo mediante el controlador
     QString productName = controller->searchProduct(code);
-    ui->label->setText(productName);
+    double productPrice = controller->getProductPrice(code);
+
+    if (productName.isEmpty()) {
+        //QMessageBox::warning(this, "Error", "Producto no encontrado.");
+        return;
+    }
+
+    // Crear el widget del producto
+    ProductItemWidget *item = new ProductItemWidget(productName, productPrice, this);
+
+    // Conectar señales del widget con la ventana principal
+    connect(item, &ProductItemWidget::itemDeleted, this, [=](QString name) {
+        qDebug() << "Producto eliminado:" << name;
+        // Podrías recalcular el total aquí, por ejemplo
+    });
+
+    connect(item, &ProductItemWidget::quantityChanged, this, [=](QString name, int qty) {
+        qDebug() << "Cantidad actualizada:" << name << qty;
+        // Podrías actualizar el subtotal aquí
+    });
+
+    // Añadir al layout
+    ui->layoutProducts->addWidget(item);
+
+    // (Opcional) actualizar totales, etc.
 }

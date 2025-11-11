@@ -6,3 +6,7 @@ ProductController::ProductController(ProductModel *model, QObject *parent)
 QString ProductController::searchProduct(const QString &barcode) {
     return m_model->getProductName(barcode);
 }
+
+double ProductController::getProductPrice(const QString &barcode) {
+    return m_model->getProductPrice(barcode);
+}
