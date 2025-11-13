@@ -49,3 +49,6 @@ Second Level Heading in Alternate Style
 Paragraph.
 
 [1]: https://www.qt.io
+
+
+= descripcion, objetivo, requerimiento, srs, escritorio
