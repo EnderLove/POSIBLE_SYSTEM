@@ -1,10 +1,26 @@
 #ifndef DBMANAGERMODEL_H
 #define DBMANAGERMODEL_H
 
-class DbManagerModel
-{
-public:
-    DbManagerModel();
-};
+#include <QObject>
+#include <QtSql/QSqlDatabase>
+#include <QtSql/QSqlQuery>
+#include <QtSql/QSqlError>
+#include <QDebug>
+#include <QFileInfo>
 
+// id, productName, barCode, basePrice, sellPrice, minimunStock, actualStock
+
+class DBManagerModel : public QObject {
+    Q_OBJECT
+
+public:
+    explicit DBManagerModel(QObject *parent = nullptr);
+    ~DBManagerModel();
+
+    bool connectToDatabase(const QString &dbPath);
+    QSqlDatabase database() const;
+
+private:
+    QSqlDatabase m_db;
+};
 #endif // DBMANAGERMODEL_H

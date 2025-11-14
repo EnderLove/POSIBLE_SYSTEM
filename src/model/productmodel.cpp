@@ -1,29 +1,32 @@
 #include "productmodel.h"
 
-ProductModel::ProductModel() {
-    // Datos de ejemplo (esto normalmente vendría de una base de datos)
-    m_products.append(new Product("001", "Coca Cola", 3.50));
-    m_products.append(new Product("002", "Inka Cola", 3.00));
-    m_products.append(new Product("003", "Agua San Luis", 2.00));
+ProductModel::ProductModel(DBManagerModel *dbManager, QObject *parent): QObject(parent), m_dbManager(dbManager)
+{
+    QSqlQuery temp(m_dbManager->database());
+    temp.exec("SELECT productName FROM products LIMIT 1");
+    qDebug() << "Query error:" << temp.lastError();
 }
 
-QString ProductModel::getProductName(const QString &barcode) const {
-    for (auto p : m_products)
-        if (p->getBarcode() == barcode)
-            return p->getName();
+QString ProductModel::getProductName(const QString &barcode) {
+    QSqlQuery query(m_dbManager->database());
+    query.prepare("SELECT productName FROM products WHERE barCode = :barcode");
+    query.bindValue(":barcode", barcode);
+
+    if (query.exec() && query.next())
+    {
+        return query.value("productName").toString();
+    }
     return "";
 }
 
-double ProductModel::getProductPrice(const QString &barcode) const {
-    for (auto p : m_products)
-        if (p->getBarcode() == barcode)
-            return p->getPrice();
+double ProductModel::getProductPrice(const QString &barcode) {
+    QSqlQuery query(m_dbManager->database());
+    query.prepare("SELECT sellPrice FROM products WHERE barCode = :barcode");
+    query.bindValue(":barcode", barcode);
+
+    if (query.exec() && query.next())
+        return query.value("sellPrice").toDouble();
+
     return 0.0;
 }
 
-Product* ProductModel::findByBarcode(const QString &barcode) {
-    for (auto p : m_products)
-        if (p->getBarcode() == barcode)
-            return p;
-    return nullptr;
-}

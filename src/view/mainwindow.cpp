@@ -1,22 +1,33 @@
+#include <QMessageBox>
+
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 
 #include "productwindow.h"
 #include "../widgets/productitemwidget.h"
+#include "../model/dbmanagermodel.h"
+
+// 9002490273262 RED BULL THE AMBAR EDITION 250ML
 
 MainWindow::MainWindow(QWidget *parent): QMainWindow(parent), ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
 
-    model = new ProductModel();
+    QString dbPath = QCoreApplication::applicationDirPath() + "/../../database/products.db";
+    qDebug() << "Ruta calculada a DB: " << dbPath;
+
+    DBManagerModel *dbManager = new DBManagerModel(this);
+    if (!dbManager->connectToDatabase(dbPath))
+    {
+        QMessageBox::critical(this, "Error", "No se pudo abrir la base de datos");
+        return;
+    }
+
+    model = new ProductModel(dbManager, this);
     controller = new ProductController(model, this);
 
     connect(ui->horizontalSlider, SIGNAL(valueChanged(int)), ui->progressBar, SLOT(setValue(int)));
 
-    //connect(ui->lineEdit, &QLineEdit::editingFinished, this, [this]()
-    //{
-    //    ui->label->setText(ui->lineEdit->text());
-    //});
 
     connect(ui->lineEdit, &QLineEdit::returnPressed,this, &MainWindow::onBarcodeEntered);
 }
