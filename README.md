@@ -1,4 +1,4 @@
-# QuantumPOS //Genkoz
+# QuantumPOS //
 
 **QuantumPOS** es un sistema de punto de venta moderno, rápido y modular, desarrollado en **C++** utilizando el framework **Qt**.  
 Su objetivo es ofrecer una solución eficiente y personalizable para la gestión de ventas, inventario y usuarios en pequeños y medianos negocios.
