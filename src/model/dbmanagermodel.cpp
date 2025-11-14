@@ -33,7 +33,7 @@ bool DBManagerModel::connectToDatabase(const QString &dbPath) {
 
     if(query.exec(selectQuery)){
         while(query.next()){
-            int codigo = query.value("barCode").toInt();
+            QString codigo = query.value("barCode").toString();
             QString nombre = query.value("productName").toString();
             qDebug() << "   Nombre:" << nombre << " |       Cod:" << codigo;
         }

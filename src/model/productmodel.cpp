@@ -1,11 +1,6 @@
 #include "productmodel.h"
 
-ProductModel::ProductModel(DBManagerModel *dbManager, QObject *parent): QObject(parent), m_dbManager(dbManager)
-{
-    QSqlQuery temp(m_dbManager->database());
-    temp.exec("SELECT productName FROM products LIMIT 1");
-    qDebug() << "Query error:" << temp.lastError();
-}
+ProductModel::ProductModel(DBManagerModel *dbManager, QObject *parent): QObject(parent), m_dbManager(dbManager){}
 
 QString ProductModel::getProductName(const QString &barcode) {
     QSqlQuery query(m_dbManager->database());

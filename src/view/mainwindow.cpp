@@ -12,6 +12,7 @@
 MainWindow::MainWindow(QWidget *parent): QMainWindow(parent), ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+    ui->scrollAreaProducts->setWidgetResizable(true);
 
     QString dbPath = QCoreApplication::applicationDirPath() + "/../../database/products.db";
     qDebug() << "Ruta calculada a DB: " << dbPath;
@@ -73,7 +74,7 @@ void MainWindow::onBarcodeEntered()
     });
 
     // Añadir al layout
-    ui->layoutProducts->addWidget(item);
+    ui->layoutProducts_2->addWidget(item);
 
     // (Opcional) actualizar totales, etc.
 }
