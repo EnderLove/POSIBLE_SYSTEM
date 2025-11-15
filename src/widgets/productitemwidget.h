@@ -33,6 +33,7 @@ private:
     Ui::ProductItemWidget *ui;
     QString m_name;
     double m_price;
+    double m_sellPrice;
 };
 
 #endif // PRODUCTITEMWIDGET_H

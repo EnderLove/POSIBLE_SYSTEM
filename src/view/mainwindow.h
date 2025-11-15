@@ -5,6 +5,7 @@
 
 #include "../model/productmodel.h"
 #include "../controller/productcontroller.h"
+#include "../widgets/productitemwidget.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -32,5 +33,8 @@ private:
 
     ProductModel *model;
     ProductController *controller;
+
+    QMap<QString, ProductItemWidget*> productWidgets;
 };
+
 #endif // MAINWINDOW_H
