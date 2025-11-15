@@ -4,7 +4,6 @@
 #include "ui_mainwindow.h"
 
 #include "productwindow.h"
-#include "../widgets/productitemwidget.h"
 #include "../model/dbmanagermodel.h"
 
 // 9002490273262 RED BULL THE AMBAR EDITION 250ML

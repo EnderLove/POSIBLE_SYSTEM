@@ -5,7 +5,8 @@ ProductItemWidget::ProductItemWidget(QString name, double price, QWidget *parent
     : QWidget(parent),
     ui(new Ui::ProductItemWidget),
     m_name(name),
-    m_price(price)
+    m_price(price),
+    m_sellPrice(price)
 {
     ui->setupUi(this);
     ui->lblProductName->setText(name);
@@ -25,13 +26,22 @@ int ProductItemWidget::getQuantity() const { return ui->spnQuantity->value(); }
 void ProductItemWidget::on_btnPlus_clicked()
 {
     ui->spnQuantity->setValue(ui->spnQuantity->value() + 1);
+
+    m_sellPrice = m_price * ui->spnQuantity->value();
+
+    ui->lblProductPrice->setText(QString::number(m_sellPrice, 'f', 2));
 }
 
 void ProductItemWidget::on_btnMinus_clicked()
 {
     if (ui->spnQuantity->value() > 1)
+    {
         ui->spnQuantity->setValue(ui->spnQuantity->value() - 1);
+
+        m_sellPrice = m_price * ui->spnQuantity->value();
+    }
 }
+
 
 void ProductItemWidget::on_btnDelete_clicked()
 {
@@ -42,4 +52,7 @@ void ProductItemWidget::on_btnDelete_clicked()
 void ProductItemWidget::on_spnQuantity_valueChanged(int value)
 {
     emit quantityChanged(m_name, value);
+
+    m_sellPrice = m_price * value;
+    ui->lblProductPrice->setText(QString::number(m_sellPrice, 'f', 2));
 }
