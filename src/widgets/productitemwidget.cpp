@@ -36,7 +36,7 @@ void ProductItemWidget::on_btnMinus_clicked()
 void ProductItemWidget::on_btnDelete_clicked()
 {
     emit itemDeleted(m_name);
-    deleteLater(); // Elimina el widget de la interfaz
+    deleteLater();
 }
 
 void ProductItemWidget::on_spnQuantity_valueChanged(int value)

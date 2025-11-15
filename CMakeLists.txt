@@ -36,6 +36,7 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
         src/view/loginwindow.h src/view/loginwindow.cpp src/view/loginwindow.ui
         src/view/productwindow.h src/view/productwindow.cpp src/view/productwindow.ui
         src/widgets/productitemwidget.h src/widgets/productitemwidget.cpp src/widgets/productitemwidget.ui
+        resources/styles/styles.qss
 
     )
 # Define target properties for Android with Qt 6 as:

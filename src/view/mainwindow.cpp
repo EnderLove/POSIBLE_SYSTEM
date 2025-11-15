@@ -50,7 +50,6 @@ void MainWindow::onBarcodeEntered()
     QString code = ui->lineEdit->text();
     ui->lineEdit->clear();
 
-    // Buscar producto en el modelo mediante el controlador
     QString productName = controller->searchProduct(code);
     double productPrice = controller->getProductPrice(code);
 
@@ -63,18 +62,14 @@ void MainWindow::onBarcodeEntered()
     ProductItemWidget *item = new ProductItemWidget(productName, productPrice, this);
 
     // Conectar señales del widget con la ventana principal
-    connect(item, &ProductItemWidget::itemDeleted, this, [=](QString name) {
+    connect(item, &ProductItemWidget::itemDeleted, this, [=](QString name) { //[=] captura por valor todas las variables usadas dentro de la lambda
         qDebug() << "Producto eliminado:" << name;
-        // Podrías recalcular el total aquí, por ejemplo
     });
 
     connect(item, &ProductItemWidget::quantityChanged, this, [=](QString name, int qty) {
         qDebug() << "Cantidad actualizada:" << name << qty;
-        // Podrías actualizar el subtotal aquí
     });
 
-    // Añadir al layout
     ui->layoutProducts_2->addWidget(item);
 
-    // (Opcional) actualizar totales, etc.
 }
