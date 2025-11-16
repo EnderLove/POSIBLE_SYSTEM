@@ -7,7 +7,6 @@
 #include <QtSql/QSqlError>
 #include <QDebug>
 #include <QFileInfo>
-#include <iomanip>
 
 // id, productName, barCode, basePrice, sellPrice, minimunStock, actualStock
 

@@ -16,20 +16,21 @@ MainWindow::MainWindow(QWidget *parent): QMainWindow(parent), ui(new Ui::MainWin
     QString dbPath = QCoreApplication::applicationDirPath() + "/../../database/products.db";
     qDebug() << "Ruta calculada a DB: " << dbPath;
 
-    DBManagerModel *dbManager = new DBManagerModel(this);
+    DBManagerModel *dbManager = new DBManagerModel(this);  // This creates a ptr as type DBManagerModel that stores a dinamically allocated object DBManagerModel(MainWindow)
     if (!dbManager->connectToDatabase(dbPath))
     {
         QMessageBox::critical(this, "Error", "No se pudo abrir la base de datos");
         return;
     }
 
-    model = new ProductModel(dbManager, this);
-    controller = new ProductController(model, this);
+    model      = new ProductModel(dbManager, this);   // ProductModel ptr that allocates a ProductModel object (dbmanager, MainWindow)
+    controller = new ProductController(model, this);  // ProductController ptr that allocates a ProductController obj (model, MainWindow)
 
     connect(ui->horizontalSlider, SIGNAL(valueChanged(int)), ui->progressBar, SLOT(setValue(int)));
 
+    //connect(ui->horizontalSlider, &QSlider::valueChanged, this, &MainWindow:
 
-    connect(ui->lineEdit, &QLineEdit::returnPressed,this, &MainWindow::onBarcodeEntered);
+    connect(ui->lineEdit, &QLineEdit::returnPressed, this, &MainWindow::onBarcodeEntered);
 }
 
 MainWindow::~MainWindow()

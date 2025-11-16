@@ -9,13 +9,13 @@
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
-class MainWindow;
-}
+class MainWindow;   // This class was automatically created by Qt Designer in ui_mainwindow.h
+}                   // We can refer to this class by using Ui::MainWindow... or smth like that
 QT_END_NAMESPACE
 
-class MainWindow : public QMainWindow
+class MainWindow : public QMainWindow   // Here we inheritate QMainWindow for our class MainWindow adding (menus, toolbars, statusbar, widget...)
 {
-    Q_OBJECT
+    Q_OBJECT                            // This is a powerful macro that habilitates event mechanisms
 
 public:
     MainWindow(QWidget *parent = nullptr);
